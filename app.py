@@ -7,43 +7,57 @@ st.set_page_config(
     layout="wide"
 )
 
+TU_KHOA_CAM = ["lồn", "cặc", "cu", "đụ", "địt", "đm", "vcl", "vl", "ngu", "óc chó", "oc cho", "chó", "súc vật", "ngu ngốc"]
+
+def kiem_tra_tu_bay(noi_dung):
+    noi_dung_lower = noi_dung.lower()
+    for tu in TU_KHOA_CAM:
+        if tu in noi_dung_lower:
+            return True
+    return False
 st.title("🌐 MẠNG XÃ HỘI HÀ TĨNH - SOCIAL HÀ TĨNH")
-st.markdown(f"📅 *Ngày cập nhật: {datetime.now().strftime('%d/%m/%Y')} | Năm học: 2025 - 2026 | Không gian kết nối tuổi trẻ*")
+st.markdown(f"📍 *Thạch Khê, Hà Tĩnh | Ngày cập nhật: {datetime.now().strftime('%d/%m/%Y')} | Năm học: 2025 - 2026*")
 st.markdown("---")
 
-st.info("🔥 **BẢNG TIN CHÍNH:** Chào mừng các bạn đến với không gian chia sẻ thông tin, học tập và kết nối cộng đồng mạng xã hội lớn nhất năm học 2025 - 2026!")
+st.info("🔥 **BẢNG TIN CHÍNH:** Không gian kết nối cộng đồng, chia sẻ niềm đam mê học tập và lan tỏa những giá trị tốt đẹp tại Hà Tĩnh!")
 
 col1, col2 = st.columns([2, 1])
 
 with col1:
     st.header("📝 Đăng trạng thái mới (Post Feed)")
-    noi_dung_status = st.text_area("Hôm nay bạn muốn chia sẻ điều gì với cộng đồng?", placeholder="Nhập suy nghĩ, câu chuyện hoặc khoảnh khắc của bạn ở đây...")
+    ten_dang_bai = st.text_input("Tên của bạn (Bắt buộc):", placeholder="Nhập tên hiển thị...")
+    noi_dung_status = st.text_area("Hôm nay bạn muốn chia sẻ điều gì?", placeholder="Nhập nội dung trạng thái văn minh, lịch sự...")
+    
     if st.button("Đăng bài viết lên mạng xã hội"):
-        if noi_dung_status:
-            st.balloons()
-            st.success("🎉 Bài viết của bạn đã được đăng công khai thành công!")
-            st.write(f"**Trạng thái vừa đăng:** \"{noi_dung_status}\"")
+        if not ten_dang_bai.strip():
+            st.warning("⚠️ Bạn vui lòng nhập tên của mình trước khi đăng bài!")
+        elif not noi_dung_status.strip():
+            st.warning("⚠️ Nội dung bài viết không được để trống!")
+        elif kiem_tra_tu_bay(noi_dung_status) or kiem_tra_tu_bay(ten_dang_bai):
+            st.error("🚫 **Cảnh báo hệ thống:** Bài viết chứa từ ngữ không phù hợp hoặc kém văn minh! Mạng Xã Hội Hà Tĩnh nghiêm cấm các từ ngữ tục tữu.")
         else:
-            st.warning("Bạn hãy viết gì đó trước khi bấm đăng nhé!")
+            st.balloons()
+            st.success(f"🎉 Cảm ơn **{ten_dang_bai}**! Bài viết của bạn đã được kiểm duyệt và đăng công khai thành công.")
+            st.write(f"💬 **[{ten_dang_bai}] vừa đăng:** \"{noi_dung_status}\"")
             
     st.markdown("---")
-
+    
     st.header("📌 Bảng Tin Nổi Bật & Câu Chuyện")
     
-    st.subheader("🌟 Hành trình tự hào của tuổi trẻ học đường")
+    st.subheader("🌟 Hành trình tự hào của tuổi trẻ Thạch Khê, Hà Tĩnh")
     st.write(
-        "Với tinh thần ham học hỏi và niềm đam mê lớn đối với ngoại ngữ, hành trình chinh phục tri thức "
-        "của lứa tuổi học sinh luôn tràn đầy những trải nghiệm rực rỡ và sáng tạo. "
-        "Đặc biệt, thành tích xuất sắc trong môn Tiếng Anh cấp Quốc gia chính là minh chứng sống động cho sự nỗ lực "
-        "không ngừng nghỉ, vượt qua mọi giới hạn bản thân để vươn tới những đỉnh cao mới."
+        "Sinh ra và lớn lên tại mảnh đất hiếu học Thôn Đình Hòe, xã Thạch Khê, tỉnh Hà Tĩnh, "
+        "Nguyễn Trương Gia Hưng (học sinh lớp 8) đã xuất sắc ghi dấu ấn mạnh mẽ với danh hiệu "
+        "**Học sinh xuất sắc cấp Quốc gia môn Tiếng Anh** trong năm học 2025 - 2026. "
+        "Đây là niềm tự hào lớn, minh chứng cho ý chí tự lực, tinh thần ham học hỏi và khát vọng vươn xa."
     )
     
-    st.subheader("🍃 Góc Thơ Ca & Cảm Xúc Thanh Xuân")
+    st.subheader("🍃 Góc Thơ Ca & Cảm Xúc Quê Hương")
     st.write(
-        "\"Sách vở miệt mài gieo con chữ mới,\n"
-        "Vươn tầm thế giới, rạng danh non sông.\n"
-        "Tuổi trẻ hôm nay chung tay viết tới,\n"
-        "Khát vọng bay cao, thỏa chí tang bồng!\n\n"
+        "\"Hà Tĩnh quê mình biển biếc trời xanh,\n"
+        "Thạch Khê yêu dấu bước chân anh hình.\n"
+        "Sách vở miệt mài gieo con chữ mới,\n"
+        "Vươn tầm thế giới, rạng danh tình quê!\n\n"
         "Bước qua thử thách, vững chãi niềm tin,\n"
         "Tương lai rộng mở phía trước đang nhìn.\n"
         "Đồng hành tri thức, bay xa muôn lối,\n"
@@ -59,27 +73,28 @@ with col1:
     )
 
     st.markdown("---")
-
+    
     st.header("⏱️ Dòng thời gian hoạt động (Timeline)")
-    st.markdown("🔹 **08:00 sáng:** Cập nhật xu hướng học tập mới cho học sinh khối THCS.")
+    st.markdown("🔹 **08:00 sáng:** Cập nhật xu hướng học tập mới cho học sinh khối THCS tại Hà Tĩnh.")
     st.markdown("🔹 **10:30 sáng:** Phát động phong trào 'Giỏi tiếng Anh - Vững tương lai'.")
     st.markdown("🔹 **14:00 chiều:** Chia sẻ tài liệu ôn thi học sinh giỏi cấp Quốc gia.")
     st.markdown("🔹 **20:00 tối:** Giao lưu trực tuyến cùng cộng đồng mạng xã hội.")
 
 with col2:
+
     st.header("📊 Thống Kê Cộng Đồng")
     st.metric(label="Thành viên trực tuyến", value="15,420", delta="+320 hôm nay")
     st.metric(label="Bài viết tổng cộng", value="1,280", delta="+45 bài mới")
-    st.metric(label="Độ uy tín mạng xã hội", value="100%", delta="Verified ✅")
+    st.metric(label="Chế độ kiểm duyệt từ bấy", value="Đang bật 🛡️", delta="An toàn 100%")
     
     st.markdown("---")
     st.header("🏆 Bảng Vàng Thành Tích")
-    st.success("✨ **Học sinh xuất sắc cấp Quốc gia môn Tiếng Anh** (Năm học 2025 - 2026)")
-    st.info("🎯 Đạt giải thưởng cao trong các kỳ thi học sinh giỏi cấp toàn quốc.")
+    st.success("✨ **Nguyễn Trương Gia Hưng**\n\n📌 Học sinh xuất sắc cấp Quốc gia môn Tiếng Anh (Năm học 2025 - 2026)\n\n📍 Thạch Khê, Hà Tĩnh")
+    st.info("🎯 Tấm gương sáng trong học tập và rèn luyện của tuổi trẻ địa phương.")
     
     st.markdown("---")
     st.header("🎵 Góc Giải Trí & Âm Nhạc")
-    st.write("🎧 Nghe nhạc lofi thư giãn khi lướt mạng xã hội.")
+    st.write("🎧 Thư giãn cùng âm nhạc khi lướt mạng xã hội.")
     if st.button("Bật nhạc thư giãn 🎶"):
         st.success("Đang phát nhạc lofi chill... Chúc bạn lướt web vui vẻ!")
         
@@ -91,23 +106,30 @@ with col2:
     st.markdown("- [Diễn đàn chia sẻ tâm sự học đường](#)")
 
 st.markdown("---")
+
 st.header("❤️ Gửi lời nhắn & Góp ý cho mạng xã hội")
 col_a, col_b = st.columns(2)
 
 with col_a:
-    ten_ban = st.text_input("Tên của bạn:")
-    loi_nhan = st.text_area("Lời chúc / Cảm nhận khi lướt web:")
+    ten_chuc = st.text_input("Tên của bạn (Bắt buộc để gửi lời chúc):", placeholder="Nhập tên của bạn...")
+    loi_nhan = st.text_area("Lời chúc / Cảm nhận khi lướt web:", placeholder="Nhập lời chúc văn minh...")
+    
     if st.button("Gửi lời chúc lên hệ thống"):
-        if ten_ban:
-            st.balloons()
-            st.success(f"Cảm ơn bạn **{ten_ban}** đã gửi lời chúc tuyệt vời! Hệ thống đã ghi nhận.")
+        if not ten_chuc.strip():
+            st.warning("⚠️ Bạn vui lòng nhập tên trước khi gửi lời chúc!")
+        elif not loi_nhan.strip():
+            st.warning("⚠️ Lời chúc không được để trống!")
+        elif kiem_tra_tu_bay(loi_nhan) or kiem_tra_tu_bay(ten_chuc):
+            st.error("🚫 **Cảnh báo hệ thống:** Lời chúc chứa từ ngữ không phù hợp! Vui lòng sử dụng ngôn từ lịch sự.")
         else:
-            st.warning("Bạn vui lòng nhập tên trước khi gửi nhé!")
+            st.balloons()
+            st.success(f"Cảm ơn bạn **{ten_chuc}** đã gửi lời chúc tuyệt vời! Hệ thống đã ghi nhận.")
 
 with col_b:
-    st.subheader("📬 Hòm Thư Đóng Góp Cộng Đồng")
-    st.write("Mọi ý kiến đóng góp, bài viết chia sẻ hay hình ảnh đẹp đều có thể gửi về hệ thống để làm phong phú thêm nội dung trang mạng xã hội.")
-    st.write("🌐 **Phiên bản:** 3.0 (Siêu dài & Hoành tráng - Năm học 2025 - 2026)")
+    st.subheader("📬 Quy tắc cộng đồng")
+    st.write("- Mọi ý kiến đóng góp, bài viết chia sẻ lịch sự đều được hoan nghênh.")
+    st.write("- **Hệ thống tự động từ chối** các từ ngữ tục tữu, phản cảm để xây dựng môi trường mạng trong sạch.")
+    st.write("🌐 **Phiên bản:** 3.1 (Bảo mật & Kiểm duyệt thông minh - Năm học 2025 - 2026)")
 
 st.markdown("---")
 st.markdown("© 2025 - 2026 **Mạng Xã Hội Hà Tĩnh**. Nơi kết nối tri thức, chia sẻ đam mê và lan tỏa tuổi trẻ học đường.")
